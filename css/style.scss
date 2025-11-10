@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Momo+Signature&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+
+
+
+
+
+
+
+
+
+
+
+:root {
+
+    --bg-primary-color: #111;
+    --bg-fill-color: #fafafa;
+    --bg-food-color: #cb2929;
+
+    --text-primary-color: #fff;
+
+    --font-1: "Share Tech", sans-serif;
+    --font-2: "Bebas Neue", sans-serif;
+    --font-3: "Outfit", sans-serif;
+
+
+    // Spacing variables
+    --space-xs: .25rem;
+    --space-sm: .5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 2.5rem;
+    --space-3xl: 4rem;
+
+    // Border Radius
+    --border-radius-xs: 2.5rem;
+    --border-radius-sm: .5rem;
+    --border-radius-md: 1rem;
+    --border-radius-lg: 1.5rem;
+    --border-radius-xl: 2rem;
+    --border-radius-2xl: 2.5rem;
+    --border-radius-3xl: 4rem;
+
+    // Border Color
+    --border-primary-color: #333;
+
+    // Block height and width
+    --block: 2rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    background-color: var(--bg-primary-color);
+    color: var(--text-primary-color);
+    font-family: var(--font-2);
+}
+
+main {
+    height: 100%;
+    width: 100%;
+}
+
+.block {
+    // height: var(--block);
+    // width: var(--block);
+    border: 1px solid var(--border-primary-color);
+    border-radius: 5rem;
+}
+
+.fill {
+    color: #111;
+    background-color: var(--bg-fill-color);
+}
+
+.food {
+    color: #111;
+    background-color: var(--bg-food-color);
+}
+
+.btn {
+    padding: var(--space-md) var(--space-3xl);
+    border: none;
+    border-radius: var(--space-sm);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.215, 0.610, 0.355, 1);
+    font-size: var(--space-lg);
+
+    &:hover{
+        opacity: 80%;
+    }
+    &:active{
+        opacity: 100%;
+    }
+}
+
+section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: var(--space-lg) var(--space-2xl);
+
+    .header {
+        background-color: #181818;
+        padding: var(--space-md);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid var(--border-primary-color);
+        border-radius: var(--border-radius-sm);
+
+        div {
+            padding: var(--space-sm) var(--space-md);
+            font-size: var(--space-md);
+            border: 1px solid var(--border-primary-color);
+            border-radius: var(--space-sm);
+        }
+    }
+
+    #grid {
+        flex-grow: 1;
+        border: 1px solid var(--border-primary-color);
+    }
+
+}
+
+.modal {
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    background: #ffffff19;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(6.3px);
+
+    .start-game {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-xl);
+
+        background: #ffffff19;
+        padding: var(--space-xl) ;
+        border-radius: var(--space-md);
+
+
+    }
+    #gameOver{
+        display: none;
+    }
+}
