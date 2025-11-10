@@ -1,3 +1,31 @@
+
+function preventReload() {
+  // Prevent pull-to-refresh (common on Android Chrome)
+  let touchStartY = 0;
+
+  window.addEventListener("touchstart", e => {
+    if (e.touches.length !== 1) return;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: false });
+
+  window.addEventListener("touchmove", e => {
+    const touchY = e.touches[0].clientY;
+    const scrollY = window.scrollY;
+
+    // If user is at top and swiping down, block it
+    if (scrollY === 0 && touchY > touchStartY) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  // Prevent reload using F5 or Ctrl+R (desktop fallback)
+  window.addEventListener("keydown", e => {
+    if ((e.key === "F5") || (e.ctrlKey && e.key === "r")) {
+      e.preventDefault();
+    }
+  });
+}
+preventReload();
 const grid = document.querySelector("#grid");
 const startBtn = document.querySelector("#startGame");
 const restartBtn = document.querySelector("#gameOver");
