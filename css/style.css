@@ -101,7 +101,6 @@ section .header div {
 }
 section #grid {
   flex-grow: 1;
-  border: 1px solid var(--border-primary-color);
 }
 
 .modal {
@@ -128,4 +127,16 @@ section #grid {
 }
 .modal #gameOver {
   display: none;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 600px) {
+  section {
+    padding: var(--space-md);
+  }
+  section .header {
+    gap: var(--space-sm);
+  }
+  section .header div h3 {
+    font-size: var(--space-md);
+  }
 }/*# sourceMappingURL=style.css.map */

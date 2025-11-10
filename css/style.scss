@@ -132,7 +132,7 @@ section {
 
     #grid {
         flex-grow: 1;
-        border: 1px solid var(--border-primary-color);
+        // border: 1px solid var(--border-primary-color);
     }
 
 }
@@ -165,4 +165,20 @@ section {
     #gameOver{
         display: none;
     }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 600px) {
+    section{
+         padding: var(--space-md) ;
+         .header{
+            gap: var(--space-sm);
+            div{
+                
+                h3{
+            font-size: var(--space-md);
+        }
+            }
+         }
+    }
+    
 }
