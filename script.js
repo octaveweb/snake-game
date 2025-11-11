@@ -1,3 +1,33 @@
+function preventReload() {
+  // Prevent pull-to-refresh (common on Android Chrome)
+  let touchStartY = 0;
+
+  window.addEventListener("touchstart", e => {
+    if (e.touches.length !== 1) return;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: false });
+
+  window.addEventListener("touchmove", e => {
+    const touchY = e.touches[0].clientY;
+    const scrollY = window.scrollY;
+
+    // If user is at top and swiping down, block it
+    if (scrollY === 0 && touchY > touchStartY) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  // Prevent reload using F5 or Ctrl+R (desktop fallback)
+  window.addEventListener("keydown", e => {
+    if ((e.key === "F5") || (e.ctrlKey && e.key === "r")) {
+      e.preventDefault();
+    }
+  });
+}
+preventReload();
+
+
+
 const grid = document.querySelector("#grid");
 const startBtn = document.querySelector("#startGame");
 const restartBtn = document.querySelector("#gameOver");
@@ -6,7 +36,9 @@ const highScoreElement = document.querySelector("#high_score");
 const scoreElement = document.querySelector("#current_score");
 const timeElement = document.querySelector("#time");
 
-const blockSize = 30;
+
+
+const blockSize = 80;
 let highscore = localStorage.getItem("highScore") || 0;
 let score = 0;
 let time = "00:00";
@@ -21,6 +53,7 @@ let intervelId = null;
 let timerIntervelId = null;
 const blocks = [];
 let snake = [{ x: 1, y: 3 }];
+
 let food = {
   x: Math.floor(Math.random() * rows),
   y: Math.floor(Math.random() * cols)
@@ -49,6 +82,21 @@ function render() {
   else if (diraction === "up") head = { x: snake[0].x - 1, y: snake[0].y };
   else if (diraction === "down") head = { x: snake[0].x + 1, y: snake[0].y };
 
+  // Wall collision
+  if (head.x < 0 || head.x >= rows || head.y < 0 || head.y >= cols) {
+    gameOver();
+    return;
+  }
+
+  // Self-collision check
+  for (let i = 0; i < snake.length; i++) {
+    if (snake[i].x === head.x && snake[i].y === head.y) {
+      gameOver();
+      return;
+    }
+  }
+
+  // Food eating logic
   if (head.x == food.x && head.y == food.y) {
     blocks[`${food.x}-${food.y}`].classList.remove("food");
     food = {
@@ -63,22 +111,29 @@ function render() {
     if (score > highscore) {
       highscore = score;
       localStorage.setItem("highScore", highscore.toString());
+      highScoreElement.innerText = highscore;
     }
+  } else {
+
+    // Move snake forward
+    const tail = snake.pop();
+    blocks[`${tail.x}-${tail.y}`].classList.remove("fill");
+    snake.unshift(head);
   }
 
-  if (head.x < 0 || head.x >= rows || head.y < 0 || head.y >= cols) {
-    clearInterval(intervelId);
-    clearInterval(timerIntervelId);
-    modal.style.display = "flex";
-    startBtn.style.display = "none";
-    restartBtn.style.display = "flex";
-    return;
-  }
+  // Draw snake
+  snake.forEach(elm => {
+    const block = blocks[`${elm.x}-${elm.y}`];
+    if (block) block.classList.add("fill");
+  });
+}
 
-  snake.forEach(elm => blocks[`${elm.x}-${elm.y}`].classList.remove("fill"));
-  snake.unshift(head);
-  snake.pop();
-  snake.forEach(elm => blocks[`${elm.x}-${elm.y}`].classList.add("fill"));
+function gameOver() {
+  clearInterval(intervelId);
+  clearInterval(timerIntervelId);
+  modal.style.display = "flex";
+  startBtn.style.display = "none";
+  restartBtn.style.display = "flex";
 }
 
 startBtn.addEventListener("click", () => {
