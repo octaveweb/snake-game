@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0acbbfd79cfb7d98c9a4fd3678308d0039b39e2d
 function preventReload() {
   // Prevent pull-to-refresh (common on Android Chrome)
   let touchStartY = 0;
@@ -25,9 +29,12 @@ function preventReload() {
   });
 }
 preventReload();
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 0acbbfd79cfb7d98c9a4fd3678308d0039b39e2d
 const grid = document.querySelector("#grid");
 const startBtn = document.querySelector("#startGame");
 const restartBtn = document.querySelector("#gameOver");
