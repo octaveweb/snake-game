@@ -1,3 +1,4 @@
+
 function preventReload() {
   // Prevent pull-to-refresh (common on Android Chrome)
   let touchStartY = 0;
